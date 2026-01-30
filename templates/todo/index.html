@@ -1,11 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1 class="text-bold">TODO list</h1>
+  <h1 class="text-bold mb-4 font-weight-bold">TODO list</h1>
   <ul class="list-group">
-    {% for todo in todo_list %}
-      <li>
-
+    {% for task in tasks %}
+      <li class="list-group-item pl-0 border-left-0 border-right-0 border-top-0">
+        <div>
+          <div class="mb-3">
+          <span class="font-weight-bold">{{ task.content }}</span>
+          {% if task.is_completed %}
+            <span class="text-success font-weight-bold">Done</span>
+          {% else %}
+            <span class="text-danger font-weight-bold">Not done</span>
+          {% endif %}
+          </div>
+          <div class="mb-3">
+            <span>Created: {{ task.datetime }}</span>
+            {% if not task.is_completed %}
+              <span class="text-dark-red font-weight-bold">Deadline: {{ task.deadline }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <div>
+          <span class="text-secondary">Tags:</span>
+          {% for tag in task.tags.all %}
+            <span class="text-secondary">{{ tag }}</span>
+          {% endfor %}
+        </div>
       </li>
     {% endfor %}
   </ul>
