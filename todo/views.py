@@ -21,6 +21,15 @@ class TaskCreateView(CreateView):
     form_class = TaskForm
     success_url = reverse_lazy("todo:index")
 
+
+class TaskUpdateView(UpdateView):
+    model = Task
+    form_class = TaskForm
+    success_url = reverse_lazy("todo:index")
+
+class TaskDeleteView(DeleteView):
+    model = Task
+    success_url = reverse_lazy("todo:index")
 class TagsView(ListView):
     model = Tag
 
