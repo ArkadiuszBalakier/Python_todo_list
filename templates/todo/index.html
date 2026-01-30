@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <div class="d-flex align-items-center justify-content-between">
   <h1 class="text-bold mb-4 font-weight-bold">TODO list</h1>
+  <form method="post" action="{% url 'todo:task_create' %}">
+    {% csrf_token %}
+    <button class="btn btn-info">Add task</button>
+  </form>
+  </div>
   <ul class="list-group">
     {% for task in tasks %}
       <li class="list-group-item pl-0 border-left-0 border-right-0 border-top-0">
