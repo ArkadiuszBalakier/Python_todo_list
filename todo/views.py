@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 
-from todo.models import Task
+from todo.models import Task, Tag
 
 
 class IndexView(ListView):
@@ -11,3 +11,7 @@ class IndexView(ListView):
 
     def get_queryset(self):
         return Task.objects.prefetch_related('tags').all()
+
+
+class TagsView(ListView):
+    model = Tag
