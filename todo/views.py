@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, DeleteView, UpdateView, CreateView
 
 from todo.forms import TaskForm
@@ -36,3 +37,11 @@ class TagCreateView(CreateView):
     model = Tag
     fields = "__all__"
     success_url = reverse_lazy("todo:tags")
+
+
+class ToggleTaskCompleteView(View):
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        task.is_completed = not task.is_completed
+        task.save(update_fields=["is_completed"])
+        return redirect("todo:index")

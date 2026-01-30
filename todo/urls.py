@@ -1,13 +1,15 @@
 from django import views
 from django.urls import path
 
-from todo.views import IndexView, TagsView, TagDeleteView, TagUpdateView, TagCreateView, TaskCreateView
+from todo.views import IndexView, TagsView, TagDeleteView, TagUpdateView, TagCreateView, TaskCreateView, \
+    ToggleTaskCompleteView
 
 app_name = "todo"
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path("tags/", TagsView.as_view(), name='tags'),
-    path("task/create/", TaskCreateView.as_view(), name='task_create'),
+    path("task/create/", TaskCreateView.as_view(), name='task-create'),
+    path("task/<int:pk>/toggle", ToggleTaskCompleteView.as_view(), name='task-toggle'),
     path("tag/<int:pk>/delete/", TagDeleteView.as_view(), name='tags-delete'),
     path("tag/<int:pk>/update/", TagUpdateView.as_view(), name='tags-update'),
     path("tag/create/", TagCreateView.as_view(), name='tags-create'),

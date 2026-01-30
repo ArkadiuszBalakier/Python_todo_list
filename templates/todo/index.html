@@ -3,7 +3,7 @@
 {% block content %}
   <div class="d-flex align-items-center justify-content-between">
   <h1 class="text-bold mb-4 font-weight-bold">TODO list</h1>
-  <form method="post" action="{% url 'todo:task_create' %}">
+  <form method="post" action="{% url 'todo:task-create' %}">
     {% csrf_token %}
     <button class="btn btn-info">Add task</button>
   </form>
@@ -12,13 +12,26 @@
     {% for task in tasks %}
       <li class="list-group-item pl-0 border-left-0 border-right-0 border-top-0">
         <div>
-          <div class="mb-3">
+          <div class="mb-3 d-flex align-items-center justify-content-between">
+          <div>
+
           <span class="font-weight-bold">{{ task.content }}</span>
           {% if task.is_completed %}
             <span class="text-success font-weight-bold">Done</span>
           {% else %}
             <span class="text-danger font-weight-bold">Not done</span>
           {% endif %}
+          </div>
+          <div>
+            <form method="post" action="{% url 'todo:task-toggle' task.id%}">
+              {% csrf_token %}
+              {% if task.is_completed %}
+                <button class="btn btn-secondary m-0">Undo</button>
+                {% else %}
+                <button class="btn btn-success">Complete</button>
+              {% endif %}
+          </form>
+          </div>
           </div>
           <div class="mb-3">
             <span>Created: {{ task.datetime }}</span>
