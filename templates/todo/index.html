@@ -45,7 +45,13 @@
           {% for tag in task.tags.all %}
             <span class="text-secondary">{{ tag }}</span>
           {% endfor %}
-
+        </div>
+        <div class="d-flex align-items-center">
+          <a class="active pr-2" href="{% url 'todo:task-update' task.id %}">Update</a>
+            <form class="d-inline" method="post" action="{% url 'todo:task-delete' task.id %}">
+              {% csrf_token %}
+              <button class="btn btn-link p-0 m-0">Delete</button>
+            </form>
         </div>
       </li>
     {% endfor %}
